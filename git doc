@@ -1,0 +1,433 @@
+GIT (2005) :
+
+Distributed Version Control System 
+
+	git is a "Version Control System or( VCS )" tool
+	(or)
+	git is a "Source Code Management ( CM )" tool
+	
+VCS is to maitain multiple versions of single file pr directory.
+
+why:
+	to track different versions of a file or dir.
+
+it can trck only text based files only like .java,.html,.jsp etc.
+it can't track images,videos,audios....etc.
+
+SVN:						|GIT:
+	server-client bssed system		|	every project is independent
+	svn always need net connection		|	git want net,when we move cemtal repository
+	more diskspace and low performance	|	less diskspace amd high performance
+	centralized vcs				|	distributed VCM	
+	hard to find error in SVN		|	eassy to find error in git
+						|	Back-up can take any client system
+devolepment process:
+
+Step:1
+	In cmd create dir: mkdir directoryname
+	
+Step:2
+	main purpose of using git.
+	now i am using GIT to track above directory.
+
+Step:3
+	we need to initialize the git.
+
+Step:4
+---------------------------------------------------------
+git init
+git config --global user.name "devolep"
+git config --global user.email "gade@gmail.com"
+git config list
+
+ls -a
+touch file1 (for empty file)
+git status 
+git add file1
+
+git commit -m "label"
+
+git log
+git show commitid
+-----------------------------------------------------|
+git clone https://github.com/4thdimenstion/file1.git |
+-----------------------------------------------------|
+     |			|
+(similor copy)		(centralized repo)
+
+________________
+git commit "id"
+_______________
+
+
+git add .(or * or -A)(for sending all files into the indexing)
+
+git commit -m "label" file1
+--------------------------------------------------------- 
+
+	 3 phases in git
+	      ----------------------
+	     |	local repo/git Dir  |-----------------------------------------------------------------------------------
+	      ----------------------											|
+			^		  ______________    ^	_______________________    |				|
+			|		|[git commit -m ""] |	[ git reset --soft cid]  (or)   git revert [commit id]  |				|
+					  ______________	_______________________   \ /				|
+		--------------------------------------------------------						|
+		|  staging area/cache area [files are in green color]	|				    [git reset --mixed cid] 
+		--------^-----------------------------------------------					  (commit id)
+	               / \		   ___________  ^	_________________________  | 				|
+			|		 [git add file] |	[git reset head filename]  |          <-----------------
+					  _____________		_________________________ \ /
+		-----------------------------------------------------------   
+	       | Working Dir[ un tracked files (files are in red color) ]  |
+		-----------------------------------------------------------
+1 working Dir:
+
+	in this state,git is just aware of the files in the project
+	it doesn't trak the files yet,we've to commit these files
+	by first adding the files to the staging area.this brings us to the next state
+	in the git life-cycle.
+
+Command to enter staging area : git add filename
+
+2 staging area/cache area:
+	while we're in the working dir,we select the files
+	that have to be tracked by git.why do we need to this?why don't we track everything
+	in the project?that's because some iles in the project like class files ,log files,
+	result files and temporary data files are dynamically generated.it doesn't make sense to track the 
+	versions of these files.
+
+whereas the source files, data files,configuration files and other projects 
+artifacts contain the bussiness logi of the application.these files
+are to be tracked by git are thus needs to be added to the staging area.
+
+in other words,staging area is the playground where you group,add and a=organize the 
+files to be commited to git for tracking their versions.
+
+git commit -m commitmessage
+
+Step:5 first of all why all these 3 phases in this tracking process.
+	if you make change to any file if you need older version then
+we can go back to git version to get that version because git maintain versions
+
+Step:6 commands to move in between these 3 phases
+	commands to enter staging area : git add filename
+	command to enter git commit -m "commit message"
+
+checking files in which phase 
+
+[ git status ] for workspace/staging
+[ git log ] for checking in local repo
+
+errors:
+
+1: git push --set-upstream name master
+2: git push 4thdimention master:master
+3: git push 4thdimention master --force
+4: git push -u 4thdimention master
+git remote add <name> <url>
+
+create a file
+
+* git init
+* touch head.html
+* git clone <clone url> 
+* git add head.html
+* git commit -m head.html
+* git config --global user.name "4thdimention"
+* git config --global user.email "gade@gmail.co"
+* git push 4thdimention master --force
+
+	git push -u origin master
+
+-----------------------------------------------------------------------------------------------------------------------
+https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow
+-----------------------------------------------------------------------------------------------------------------------
+
+git branch develop
+git push -u origin develop
+-----------------------------------------------------------------------------------------------------------------------
+Creating a feature branch
+	Without the git-flow extensions:
+
+		git checkout develop
+		git checkout -b feature_branch
+	When using the git-flow extension:
+
+		git flow feature start feature_branch
+-----------------------------------------------------------------------------------------------------------------------
+Finishing a feature branch
+
+	Without the git-flow extensions:
+
+		git checkout develop
+		git merge feature_branch
+	Using the git-flow extensions:
+
+		git flow feature finish feature_branch
+-----------------------------------------------------------------------------------------------------------------------
+Release Branches
+	Without the git-flow extensions:
+
+		git checkout develop
+		git checkout -b release/0.1.0
+	When using the git-flow extensions:
+
+		$ git flow release start 0.1.0
+		Switched to a new branch 'release/0.1.0'
+	
+To finish a release branch, use the following methods:
+
+	Without the git-flow extensions:
+
+		git checkout master
+		git merge release/0.1.0
+	Or with the git-flow extension:
+
+		git flow release finish '0.1.0'
+
+-----------------------------------------------------------------------------------------------------------------------
+Hotfix Branches
+	Without the git-flow extensions:
+
+		git checkout master
+		git checkout -b hotfix_branch
+	When using the git-flow extensions: 
+
+		$ git flow hotfix start hotfix_branch
+
+-----------------------------------------------------------------------------------------------------------------------
+
+Example
+A complete example demonstrating a Feature Branch Flow is as follows. Assuming we have a repo setup with a master branch.
+
+	git checkout master
+	git checkout -b develop
+	git checkout -b feature_branch
+# work happens on feature branch
+	git checkout develop
+	git merge feature_branch
+	git checkout master
+	git merge develop
+	git branch -d feature_branch
+In addition to the feature and release flow, a hotfix example is as follows:
+
+	git checkout master
+	git checkout -b hotfix_branch
+# work is done commits are added to the hotfix_branch
+	git checkout develop
+	git merge hotfix_branch
+	git checkout master
+	git merge hotfix_branch
+-----------------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------
+MERGE
+================================================================
+suppose we have 2 files in master
+git master
+it will show we r in which branch
+
+git checkout -b feature
+	for creating feature branch
+ll
+	for checking all files
+
+touch feature.txt
+	for creating feature.txt file
+
+ll
+	 for checking all files
+
+git status
+	for checking 
+git add .
+	for adding all files
+
+git commit -m "feature.txt created"
+
+git status
+
+git checkout master
+
+ll
+	we have 2 files
+
+git merge feature
+	feature file is merged into master branch
+ll
+	it will show u 3 files in master branch now.
+[here we didn't add any data in feature.txt file]
+[now  add some data in feature.txt file]
+ 
+then check git status
+
+git status
+	it will show u modified file(in red color)
+
+git commit -am "feature.txt file edited" //a-ammend b-message
+
+git checkout feature branch
+
+cat feature.txt
+vi feature.txt	//for editing file
+	[edit]
+	:wq enter [for quit]
+
+
+git commit -am "feature.txt file edited in feature branch"
+
+git checkout master
+git merge feature
+	merge failed	//cause we edited in feature branch[conflict]
+	change the data inside files
+
+git commit -am "merge conflicts done in master branch"
+git status
+ nothing to commit
+
+cat feature
+	it will show feature file edited in fature branch
+git checkout feature
+
+-----------------------------------------------------------------------------------------------------------------------
+The overall flow of Gitflow is:
+
+	1.A develop branch is created from master
+	2.A release branch is created from develop
+	3.Feature branches are created from develop
+	4.When a feature is complete it is merged into the develop branch
+	5.When the release branch is done it is merged into develop and master
+	6.If an issue in master is detected a hotfix branch is created from master
+	7.Once the hotfix is complete it is merged to both develop and master
+-----------------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------
+
+REBASE
+======================================================================================================================
+Suppose Remote branch have 2 commits  0--0	[0 is a commit]
+I am in master branch currently
+have two commits previously 
+take git pull for latest commits
+	[git pull]
+checkout to feature branch
+	[git checkout feature]
+				remote branch	0--0
+
+				master branch	0--0
+					   	   |
+				feature branch	   |_		//feature branch is just created
+
+now i added a file
+	[git add index.html]
+then commiting
+	[git commit -am "index.html commit"]
+
+				remote branch	0--0
+
+				master branch	0--0
+					   	   |
+				feature branch	   |_0		//one commit is added here in feature branch
+now i added a file
+	[git add file1.html]
+then commiting
+	[git commit -am "file1.html commit"]
+
+				remote branch	0--0
+
+				master branch	0--0
+					   	   |
+				feature branch	   |_0--0	//one more commit is added here in feature branch
+
+	suppose in the mean time one commit is added in the remote master
+
+					remote branch	0--0--0		//one commit added in remote branch
+
+	
+	then now checkout to master
+		[git checkout master]
+	take latest pull riquest
+		[git pull]
+
+					remote branch	0--0--0
+
+					master branch	0--0--0			//one commit is added in master branch here
+						   	   |
+					feature branch	   |_0--0
+	
+	now checkout to feature branch
+	
+	[git checkout feature]
+	
+	now 
+		[git rebase master]
+		
+				remote branch	0--0--0
+
+				master branch	0--0--0
+					   	      |
+				feature branch	      |_0--0		//it can rabase the anchor to latest master
+
+	in case if we have no conflicts
+	
+	checkout to master
+		[git checkout master]
+	rebase it against feature branch
+		[git rebase feature]
+
+				remote branch	0--0--0
+
+				master branch	0--0--0--0--0		//feature branch commits are added to master
+					   	      
+				feature branch	   
+
+	now we r ready for push
+		[git push]   
+	
+	now remote branch is updated with new commits
+	
+				remote branch	0--0--0--0--0		//new commits added from local branch
+				master branch	0--0--0--0--0
+
+-----------------------------------------------------------------------------------------------------------------------
+GIT EDIT 
+	git config --edit
+	git config --global --edit
+	git config --system --edit
+	git config --local --edit
+GIT PROXY UN-SET
+	
+	git config --global --unset http.proxy 
+	git config --global --unset https.proxy
+	
+	git config --unset http.proxy
+	git config --unset https.proxy
+-----------------------------------------------------------------------------------------------------------------------
+ORIGIN
+	git config --list --show-origin
+	git config -l --show-origin
+	
+ADDING ORIGIN USING SSH
+	git remote add origin ssh://login@IP/path/to/repository
+ADDING ORIGIN USING HTTP
+	git remote add origin http://IP/path/to/repository
+	
+	Nutshell: git remote set-url origin https://github.com/username/repo
+REMOVEING ORIGIN
+	git remote remove origin
+-----------------------------------------------------------------------------------------------------------------------
+
+deleting commit
+	git rebase -i HEAD~2
+-----------------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------
+deploy new in combined
+
+mvn clean install -P complete-deploy,author -DskipTests
+mvn install -P complete-deploy,author -rf :shell-common-caconfig-bundle -DskipTests
+mvn install -P complete-deploy,author -rf :shell-frontend -DskipTests
+mvn clean install -P server-package-deploy,author -DskipTests
+-----------------------------------------------------------------------------------------------------------------------
+
+
+
