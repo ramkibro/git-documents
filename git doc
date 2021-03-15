@@ -227,6 +227,8 @@ suppose we have 2 files in master
 git master
 it will show we r in which branch
 
+creating new branch
+
 git checkout -b feature
 	for creating feature branch
 ll
@@ -236,17 +238,27 @@ touch feature.txt
 	for creating feature.txt file
 
 ll
-	 for checking all files
+ it wil show all list files
+__
 
-git status
-	for checking 
-git add .
-	for adding all files
+checking all files
 
-git commit -m "feature.txt created"
+$git status
+	it will show all untrcked files [in red color]
+________________
+adding files 
+$ git add . 
+	it will add all files [show in green color when use $ git status]
+_________________
+commiting files
+$git commit -m "feature.txt created"
 
-git status
+$git status
 
+checking all comit msg's
+$git log 
+	it will show all committ's
+_______________
 git checkout master
 
 ll
